@@ -36,7 +36,7 @@
 
             // デモリンクを作成
             for (var i = 1; i <= demoCount; i++) {
-                var demoLink = $('<a>').attr('href', '' + i + '/').text('Demo ' + i);
+                var demoLink = $('<a>').attr('href', '/demo/' + i + '/').text('Demo ' + i);
                 var demoItem = $('<li>').append(demoLink);
                 $('#demo-list').append(demoItem);
             }
