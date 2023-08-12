@@ -36,18 +36,26 @@
             var enemySpeed = 2;
             var bulletSpeed = 5;
             var score = 0;
+            var keys = {};
 
             $(document).on('keydown', function(e) {
-                if (e.which === 37) {
-                    playerX -= playerSpeed;
-                } else if (e.which === 39) {
-                    playerX += playerSpeed;
-                } else if (e.which === 32) {
-                    shoot();
-                }
+                keys[e.which] = true;
+            });
+
+            $(document).on('keyup', function(e) {
+                keys[e.which] = false;
             });
 
             setInterval(function() {
+                if (keys[37]) {
+                    playerX -= playerSpeed;
+                }
+                if (keys[39]) {
+                    playerX += playerSpeed;
+                }
+                if (keys[32]) {
+                    shoot();
+                }
                 updatePlayer();
                 updateEnemies();
                 updateBullets();
@@ -60,6 +68,11 @@
             }, 1000);
 
             function updatePlayer() {
+                if (playerX < 0) {
+                    playerX = 0;
+                } else if (playerX > $(window).width() - player.width()) {
+                    playerX = $(window).width() - player.width();
+                }
                 player.css({left: playerX, top: playerY});
             }
 
