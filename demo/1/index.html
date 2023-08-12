@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>掲示板</title>
+</head>
+<body>
+    <h1>掲示板</h1>
+    <form id="post-form">
+        <label for="post-author">名前:</label>
+        <input type="text" id="post-author" name="post-author"><br><br>
+        <label for="post-content">コメント:</label><br>
+        <textarea id="post-content" name="post-content"></textarea><br><br>
+        <input type="submit" value="投稿">
+    </form>
+    <div id="posts"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#post-form').submit(function(event) {
+            event.preventDefault();
+            var postNumber = // 投稿番号を取得する処理
+            var postAuthor = $('#post-author').val();
+            var postTime = // 現在の時間を取得する処理
+            var postContent = $('#post-content').val();
+            // csvファイルに記録する処理
+        });
+    </script>
+</body>
+</html>
