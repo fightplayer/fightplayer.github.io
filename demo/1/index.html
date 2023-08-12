@@ -37,6 +37,8 @@
             var bulletSpeed = 5;
             var score = 0;
             var keys = {};
+            var canShoot = true;
+            var shootDelay = 500;
 
             $(document).on('keydown', function(e) {
                 keys[e.which] = true;
@@ -53,8 +55,12 @@
                 if (keys[39]) {
                     playerX += playerSpeed;
                 }
-                if (keys[32]) {
+                if (keys[32] && canShoot) {
                     shoot();
+                    canShoot = false;
+                    setTimeout(function() {
+                        canShoot = true;
+                    }, shootDelay);
                 }
                 updatePlayer();
                 updateEnemies();
@@ -63,9 +69,19 @@
                 updateScore();
             }, 20);
 
-            setInterval(function() {
+            var enemyInterval = setInterval(function() {
                 createEnemy();
             }, 1000);
+
+            $(window).on('blur', function() {
+                clearInterval(enemyInterval);
+            });
+
+            $(window).on('focus', function() {
+                enemyInterval = setInterval(function() {
+                    createEnemy();
+                }, 1000);
+            });
 
             function updatePlayer() {
                 if (playerX < 0) {
