@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>デモサイト一覧</title>
 
+    <!-- CSS -->
+    <style>
+        body {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>デモサイト一覧</h1>
+    <ul id="demo-list">
+        <!-- デモリンクがここに挿入されます -->
+    </ul>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // デモの数
+            var demoCount = 3;
+
+            // デモリンクを作成
+            for (var i = 1; i <= demoCount; i++) {
+                var demoLink = $('<a>').attr('href', 'demo/' + i + '/').text('Demo ' + i);
+                var demoItem = $('<li>').append(demoLink);
+                $('#demo-list').append(demoItem);
+            }
+        });
+    </script>
+</body>
+</html>
