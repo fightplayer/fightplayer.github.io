@@ -1,0 +1,1 @@
+#player,.enemy,.bullet{position:absolute;width:20px;height:20px}#player{bottom:0;background-color:blue}.enemy{top:0;background-color:red}.bullet{background-color:black}
