@@ -86,3 +86,58 @@ $(function() {
         }
     }
 
+    function shoot() {
+        var bulletX = playerX + player.width() / 2 - 5;
+        var bulletY = playerY - 20;
+        var bullet = $('<div class="bullet"></div>');
+        bullet.css({left: bulletX, top: bulletY});
+        $('body').append(bullet);
+        bullets.push({x: bulletX, y: bulletY, element: bullet});
+    }
+
+    function updateBullets() {
+        for (var i = bullets.length - 1; i >= 0; i--) {
+            var bullet = bullets[i];
+            bullet.y -= bulletSpeed;
+            if (bullet.y < -20) {
+                bullets.splice(i, 1);
+                bullet.element.remove();
+            } else {
+                bullet.element.css({top: bullet.y});
+            }
+        }
+    }
+
+    function checkCollisions() {
+        for (var i = enemies.length - 1; i >= 0; i--) {
+            var enemy = enemies[i];
+            for (var j = bullets.length - 1; j >= 0; j--) {
+                var bullet = bullets[j];
+                if (isColliding(enemy, bullet)) {
+                    enemies.splice(i, 1);
+                    enemy.element.remove();
+                    bullets.splice(j, 1);
+                    bullet.element.remove();
+                    score++;
+                }
+            }
+            if (isColliding(enemy, {x: playerX, y: playerY, element: player})) {
+                alert('Game Over');
+                location.reload();
+            }
+        }
+    }
+
+    function isColliding(a, b) {
+      return !(
+          ((a.y + a.element.height()) < (b.y)) ||
+          (a.y > (b.y + b.element.height())) ||
+          ((a.x + a.element.width()) < b.x) ||
+          (a.x > (b.x + b.element.width()))
+      );
+   }
+
+   function updateScore() {
+       $('#score').text('Score: ' + score);
+   }
+});
