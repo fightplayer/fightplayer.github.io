@@ -41,9 +41,15 @@ $(function() {
         updateScore();
     }, 20);
 
-    var enemyInterval = setInterval(function() {
+    var enemyInterval;
+        $(window).on('blur', function() {
+        clearInterval(enemyInterval);
+    });
+    $(window).on('focus', function() {
+        enemyInterval = setInterval(function() {
         createEnemy();
-    }, 1000);
+        }, 1000);
+    });
 
     $(window).on('blur', function() {
         clearInterval(enemyInterval);
