@@ -61,27 +61,42 @@ $(function() {
         } else if (playerX > $(window).width() - player.width()) {
             playerX = $(window).width() - player.width();
         }
-        player.css({left: playerX, top: playerY});
+        player.css({
+            left: playerX,
+            top: playerY
+        });
     }
 
     function createEnemy() {
-        var enemyX = Math.random() * ($(window).width() - 20);
-        var enemyY = -20;
+        var enemyX = Math.random() < 0.5 ? -20 : $(window).width();
+        var enemyY = Math.random() * ($(window).height() - 20);
         var enemy = $('<div class="enemy"></div>');
-        enemy.css({left: enemyX, top: enemyY});
+        enemy.css({
+            left: enemyX,
+            top: enemyY
+        });
         $('body').append(enemy);
-        enemies.push({x: enemyX, y: enemyY, element: enemy});
+        enemies.push({
+            x: enemyX,
+            y: enemyY,
+            element: enemy,
+            direction: enemyX < 0 ? 1 : -1
+        });
     }
 
     function updateEnemies() {
         for (var i = enemies.length - 1; i >= 0; i--) {
             var enemy = enemies[i];
             enemy.y += enemySpeed;
-            if (enemy.y > $(window).height()) {
+            enemy.x += enemySpeed * enemy.direction;
+            if (enemy.y > $(window).height() || enemy.x < -20 || enemy.x > $(window).width()) {
                 enemies.splice(i, 1);
                 enemy.element.remove();
             } else {
-                enemy.element.css({top: enemy.y});
+                enemy.element.css({
+                    top: enemy.y,
+                    left: enemy.x
+                });
             }
         }
     }
@@ -90,9 +105,16 @@ $(function() {
         var bulletX = playerX + player.width() / 2 - 5;
         var bulletY = playerY - 20;
         var bullet = $('<div class="bullet"></div>');
-        bullet.css({left: bulletX, top: bulletY});
+        bullet.css({
+            left: bulletX,
+            top: bulletY
+        });
         $('body').append(bullet);
-        bullets.push({x: bulletX, y: bulletY, element: bullet});
+        bullets.push({
+            x: bulletX,
+            y: bulletY,
+            element: bullet
+        });
     }
 
     function updateBullets() {
@@ -103,7 +125,9 @@ $(function() {
                 bullets.splice(i, 1);
                 bullet.element.remove();
             } else {
-                bullet.element.css({top: bullet.y});
+                bullet.element.css({
+                    top: bullet.y
+                });
             }
         }
     }
@@ -121,23 +145,14 @@ $(function() {
                     score++;
                 }
             }
-            if (isColliding(enemy, {x: playerX, y: playerY, element: player})) {
-                alert('Game Over');
-                location.reload();
-            }
         }
     }
 
     function isColliding(a, b) {
-      return !(
-          ((a.y + a.element.height()) < (b.y)) ||
-          (a.y > (b.y + b.element.height())) ||
-          ((a.x + a.element.width()) < b.x) ||
-          (a.x > (b.x + b.element.width()))
-      );
-   }
+      return !(((a.y + a.element.height()) < (b.y)) || (a.y > (b.y + b.element.height())) || ((a.x + a.element.width()) < b.x) || (a.x > (b.x + b.element.width())));
+    }
 
-   function updateScore() {
-       $('#score').text('Score: ' + score);
-   }
+    function updateScore() {
+        $('#score').text('Score: ' + score);
+    }
 });
