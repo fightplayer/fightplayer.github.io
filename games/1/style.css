@@ -1,9 +1,24 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
   }
-  canvas {
-    display: block;
-    background-color: #eee;
+  
+  #window {
+    width: 640px;
+    height: 480px;
+    background-color: #ffffff;
+  }
+  
+  #ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #ff0000;
+  }
+  
+  .block {
+    width: 50px;
+    height: 20px;
+    background-color: #000000;
   }
   
