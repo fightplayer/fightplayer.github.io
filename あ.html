@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Unblocked link</title>
+    <link rel="stylesheet" href="assets/css/link.css">
+    <script>
+        // リンクをクリックしたときに呼び出される関数
+        function openLink(link) {
+            // alertメソッドで別のポップアップウィンドウを表示する
+            alert("警告：このリンクは新しいタブで開きます。続行する前に確認してください。");
+            // promptメソッドでユーザーに入力を求める
+            var input = prompt("このリンクを開くには、\"OK\"と入力してください。");
+            // 入力が"OK"と一致した場合
+            if (input == "OK") {
+                // confirmメソッドで警告メッセージとOK/キャンセルのボタンを表示する
+                var result = confirm("注意：このリンクを押すと新しいタブで表示され、履歴が残ります。本当によろしいですか？");
+                // OKを選択した場合
+                if (result) {
+                    // 新しいタブでリンク先を開く
+                    window.open(link, "_blank");
+                }
+                // キャンセルを選択した場合は何もしない
+            }
+            // 入力が"OK"と一致しなかった場合は何もしない
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+        <h1>ブロックされてないけど埋め込めないサイト</h1>
+        <!-- onclick属性に関数を指定する -->
+        <a href="#" onclick="openLink('https://jp.akinator.com/')" class="linkBlock">アキネーター</a>
+        <a href="#" onclick="openLink('https://captown.capcom.com/ja/retro_games/2/ja')" class="linkBlock">ストリートファイター2</a>
+    </center>
+</body>
+
+</html>
